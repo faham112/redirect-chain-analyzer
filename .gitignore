@@ -1,0 +1,5 @@
+node_modules/
+.env
+database/scans.json
+*.log
+.DS_Store

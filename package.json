@@ -1,0 +1,27 @@
+{
+  "name": "redirect-chain-analyzer",
+  "version": "1.0.0",
+  "description": "Professional Redirect Chain Analyzer with SSRF protection and detailed reporting",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "keywords": ["redirect", "security", "ssrf", "url-analyzer"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-rate-limit": "^7.4.1",
+    "helmet": "^8.0.0",
+    "ipaddr.js": "^2.2.0",
+    "morgan": "^1.10.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
