@@ -19,6 +19,15 @@ test('blocks private IP ranges', () => {
   assert.strictEqual(isPrivateOrReserved('172.16.0.1'), true);
   assert.strictEqual(isPrivateOrReserved('169.254.169.254'), true);
   assert.strictEqual(isPrivateOrReserved('8.8.8.8'), false);
+  assert.strictEqual(isPrivateOrReserved('2a03:2880:f379:1:face:b00c:0:25de'), false);
+  assert.strictEqual(isPrivateOrReserved('::1'), true);
+  assert.strictEqual(isPrivateOrReserved('::'), true);
+  assert.strictEqual(isPrivateOrReserved('fe80::1'), true);
+  assert.strictEqual(isPrivateOrReserved('fc00::1'), true);
+  assert.strictEqual(isPrivateOrReserved('::ffff:127.0.0.1'), true);
+  assert.strictEqual(isPrivateOrReserved('::ffff:10.0.0.1'), true);
+  assert.strictEqual(isPrivateOrReserved('::ffff:169.254.169.254'), true);
+  assert.strictEqual(isPrivateOrReserved('not-an-ip'), true);
 });
 
 test('allows valid public URLs', () => {

@@ -28,12 +28,15 @@ const ALLOWED_PORTS = (process.env.ALLOWED_PORTS || '80,443').split(',').map(Num
 function isPrivateOrReserved(ip) {
   if (!ip) return true;
   try {
-    const addr = ipaddr.parse(ip);
+    let addr = ipaddr.parse(ip);
+    if (addr.kind() === 'ipv6' && addr.isIPv4MappedAddress()) addr = addr.toIPv4Address();
     if (addr.range() === 'loopback' || addr.range() === 'linkLocal' || addr.range() === 'uniqueLocal' || addr.range() === 'unspecified' || addr.range() === 'multicast' || addr.range() === 'reserved') {
       return true;
     }
     for (const cidr of BLOCKED_CIDRS) {
-      if (addr.match(ipaddr.parseCIDR(cidr))) return true;
+      const range = ipaddr.parseCIDR(cidr);
+      if (range[0].kind() !== addr.kind()) continue;
+      if (addr.match(range)) return true;
     }
     return false;
   } catch {
